@@ -1,1 +1,61 @@
-:)
+// In process.... 
+
+#include <conio.h>
+#include <iostream>
+#include <Windows.h>
+class cNav{
+
+public:
+  void Run(SHORT aa, SHORT ba);
+  void GoTo(SHORT ab, SHORT bb);
+  SHORT shA = 0, shB = 0;
+} cN;
+
+int main(){
+  
+  cN.Run(cN.shA, cN.shB);
+  return EXIT_SUCCESS;
+}
+
+void cNav::Run(SHORT aa, SHORT ba){
+
+  char chKb;
+  bool isOver = false;
+  HANDLE hCur;
+  hCur = GetStdHandle(STD_OUTPUT_HANDLE);
+  CONSOLE_CURSOR_INFO cci;
+  cci.bVisible = FALSE;
+  cci.dwSize   = 100;
+  if (cci.bVisible == TURE){
+    
+    system("CLS");
+    printf("hCur = TRUE\n");
+    system("PAUSE");
+  }
+  
+  else {
+  
+  while (!isOver){
+  
+    if (_kbhit()){
+      
+        chKb = _getch();
+        
+        if (GetAsyncKeyState(VK_UP))    ba--;
+        if (GetAsyncKeyState(VK_DOWN))  ba++;
+        if (GetAsyncKeyState(VK_LEFT))  aa --;
+        if (GetAsyncKeyState(VK_RIGHT)) aa++;
+        
+    }
+  }
+}
+
+void cNav::GoTo(SHORT ab, SHORT bb){
+
+  HANDLE hPos;
+  hPos = GetStdHandle(STD_OUTPUT_HANDLE);
+  COORD crPos;
+  crPos.X = ab;
+  crPos.Y = bb;
+  SetCOnsoleCursorPosition(hPos, crPos);
+}

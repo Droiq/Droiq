@@ -1,61 +1,62 @@
-// In process.... 
+ // Press Number v 1.0.0 by Droiq
+ // In Process...
 
+#include <ctime>
 #include <conio.h>
 #include <iostream>
-#include <Windows.h>
-class cNav{
+#include <Windows.h >
 
-public:
-  void Run(SHORT aa, SHORT ba);
-  void GoTo(SHORT ab, SHORT bb);
-  SHORT shA = 0, shB = 0;
-} cN;
+struct sData {
 
-int main(){
-  
-  cN.Run(cN.shA, cN.shB);
+  SHORT shRand = (rand() % 40) + 1, shRand2 = (rand() % 9) + 1, shRand3 = (rand() % 40) + 1;
+  bool isOver = false;
+  bool isPressed = false;
+}sD;
+
+class cPN {
+publc:
+    void Run(void);
+    void GoTo(SHORT a, SHORT b);
+}cPN;
+
+int main(void){
+    
+  srand(time(NULL));
+  cPN.Run(void);  
   return EXIT_SUCCESS;
 }
 
-void cNav::Run(SHORT aa, SHORT ba){
-
-  char chKb;
-  bool isOver = false;
-  HANDLE hCur;
-  hCur = GetStdHandle(STD_OUTPUT_HANDLE);
-  CONSOLE_CURSOR_INFO cci;
-  cci.bVisible = FALSE;
-  cci.dwSize   = 100;
-  if (cci.bVisible == TURE){
+void cPN::Run(void){
+ 
+    HANDLE hCur;
+    hCur = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_CURSOR_INFO cci;
+    cci.bVisible = FALSE;
+    cci.dwSize = 100;
+    SetConsoleCursorInfo(hCur, &cci);
     
-    system("CLS");
-    printf("hCur = TRUE\n");
-    system("PAUSE");
-  }
-  
-  else {
-  
-  while (!isOver){
-  
-    if (_kbhit()){
-      
-        chKb = _getch();
+    while (!sD.isOver){
+     
+     GoTo(sD.shRand2, sD.shRand3);
+     clock();
+     
+     while ( clock() != 1000){
+     
+     
+     std::cout << " Press " << sD.shRand2 << std::endl;
+     sD.isPressed = true;
+        }
         
-        if (GetAsyncKeyState(VK_UP))    ba--;
-        if (GetAsyncKeyState(VK_DOWN))  ba++;
-        if (GetAsyncKeyState(VK_LEFT))  aa --;
-        if (GetAsyncKeyState(VK_RIGHT)) aa++;
-        
-    }
-  }
+    if (sD.isPressed == true)   printf("You haven't pressed the botton in the period of time");
+    system("PAUSE);
 }
 
-void cNav::GoTo(SHORT ab, SHORT bb){
-
-  HANDLE hPos;
-  hPos = GetStdHandle(STD_OUTPUT_HANDLE);
-  COORD crPos;
-  crPos.X = ab;
-  crPos.Y = bb;
-  SetCOnsoleCursorPosition(hPos, crPos);
+void GoTo(SHORT a, SHORT b){
+ 
+    HANDLE hPos;
+    hPos = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD crPos;
+    crPos.X = a;
+    crPos.Y = b;
+    SetConsoleCursorPosition(hrPos, crPos);
 }

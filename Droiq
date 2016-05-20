@@ -60,3 +60,5 @@ void GoTo(SHORT a, SHORT b){
     crPos.Y = b;
     SetConsoleCursorPosition(hrPos, crPos);
 }
+
+// Updated
